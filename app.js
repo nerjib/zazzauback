@@ -79,7 +79,7 @@ res.json({
 })
 })
 
-app.use('/api/v1/sites', sites)
+app.use('/api/v1/sites', Sites)
 
 
 
