@@ -9,6 +9,7 @@ const multer = require('multer');
 const cloudinary = require('cloudinary');
 
 const Sites = require('./src/controllers/sites')
+const Folders = require('./src/controllers/folders')
 
 
 
@@ -80,6 +81,8 @@ res.json({
 })
 
 app.use('/api/v1/sites', Sites)
+app.use('/api/v1/folders', Folders)
+
 
 
 
