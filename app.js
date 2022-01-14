@@ -10,6 +10,7 @@ const cloudinary = require('cloudinary');
 
 const Sites = require('./src/controllers/sites')
 const Folders = require('./src/controllers/folders')
+const Files = require('./src/controllers/files')
 
 
 
@@ -82,6 +83,7 @@ res.json({
 
 app.use('/api/v1/sites', Sites)
 app.use('/api/v1/folders', Folders)
+app.use('/api/v1/files', Files)
 
 
 
