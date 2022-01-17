@@ -9,7 +9,7 @@ const cloudinary = require('./cloudinary')
 
   
 router.get('/', async (req, res) => {
-    const getAllQ = `SELECT * FROM files`;
+    const getAllQ = `SELECT * FROM customers`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
   });  
   
   router.post('/', upload.single('file'),  async(req, res) => {
-    const uploader = async (path) => await cloudinary.uploads(path,'zazzaufiles', req.body.filename+'_'+(new Date()).getTime());
+    const uploader = async (path) => await cloudinary.uploads(path,'customer', req.body.name+'_'+(new Date()).getTime());
 
     if (req.method === 'POST') {
         const urls = []
@@ -37,17 +37,35 @@ router.get('/', async (req, res) => {
     
    // cloudinary.uploader.upload(req.file.path, async (result)=> {
     
-    const createUser = `INSERT INTO
-      files(filename,folder,category,date,uploadedby,fileurl)
-      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+    const createUser = `INSERT customer
+        (name,lastname,dob,state,lga,pow,gradelevel,ministry,psn,department,bank,actno,branch,phone,modeofpayment
+            caddress, phaddress, proposedlayout, plotno, plotsize, date,formid,imgurl)
+      VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10,$11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING *`;
     console.log(req.body)
     const values = [
-    req.body.filename,
-    req.body.folder,
-    req.body.category,
+    req.body.name,
+    req.body.lastname,
+    req.body.dob,
+    req.body.state,
+    req.body.lga,
+    req.body.pow,
+    req.body.gradelevel,
+    req.body.ministry,
+    req.body.psn,
+    req.body.department,
+    req.body.bank,
+    req.body.actno,
+    req.body.branch,
+    req.body.phone,
+    req.body.modeofpayment,
+    req.body.caddress,
+    req.body.phaddress,
+    req.body.proposedlayout,
+    req.body.plotno,
+    req.body.plotsize,
     moment(new Date()),
-    req.body.uploadedby,
-    urls[0] 
+    req.body.formid,
+    urls[0] ?urls[0]:''
       ];
     try {
     const { rows } = await db.query(createUser, values);
