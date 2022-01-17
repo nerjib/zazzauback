@@ -101,11 +101,12 @@ router.get('/', async (req, res) => {
    // cloudinary.uploader.upload(req.file.path, async (result)=> {
     
     const createUser = `INSERT guarantor
-      (name,department,phone,date, imgurl)
-      VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+      (name,custormerid,department,phone,date, imgurl)
+      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
     console.log(req.body)
     const values = [
     req.body.name,
+    req.body.customerid,
     req.body.department,
     req.body.phone,
     moment(new Date()),
@@ -129,5 +130,50 @@ router.get('/', async (req, res) => {
 
   });
 
+
+  router.post('/nok', upload.single('file'),  async(req, res) => {
+    const uploader = async (path) => await cloudinary.uploads(path,'nok', req.body.name+'_'+(new Date()).getTime());
+
+    if (req.method === 'POST') {
+        const urls = []
+        const file = req.file.path;
+    //    for (const file of files) {
+       //   const { path } = file;
+          const newPath = await uploader(file)
+          urls.push(newPath.url)
+         // fs.unlinkSync(path)
+      //  }
+    
+   // cloudinary.uploader.upload(req.file.path, async (result)=> {
+    
+    const createUser = `INSERT nok
+      (name,customerid,department,phone,date, imgurl)
+      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+    console.log(req.body)
+    const values = [
+    req.body.name,
+    req.body.customerid,
+    req.body.department,
+    req.body.phone,
+    moment(new Date()),
+    urls[0] ?urls[0]:''
+      ];
+    try {
+    const { rows } = await db.query(createUser, values);
+    // console.log(rows);
+    return res.status(201).send(rows);
+    } catch (error) {
+    return res.status(400).send(error);
+    }
+  
+  //  },{ resource_type: "auto", public_id: `ridafycovers/${req.body.title}` })
+
+} else {
+    res.status(405).json({
+      err: `${req.method} method not allowed`
+    })
+  }
+
+  });
 
   module.exports = router;
