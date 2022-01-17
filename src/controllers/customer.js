@@ -9,7 +9,7 @@ const cloudinary = require('./cloudinary')
 
   
 router.get('/', async (req, res) => {
-    const getAllQ = `SELECT * FROM customers`;
+    const getAllQ = `SELECT * FROM customer`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
