@@ -38,13 +38,14 @@ router.get('/', async (req, res) => {
    // cloudinary.uploader.upload(req.file.path, async (result)=> {
     
     const createUser = `INSERT customer
-        (name,lastname,dob,state,lga,pow,gradelevel,ministry,psn,department,bank,actno,branch,phone,modeofpayment
+        (name,lastname,othername,dob,state,lga,pow,gradelevel,ministry,psn,department,bank,actno,branch,phone,modeofpayment,
             caddress, phaddress, proposedlayout, plotno, plotsize, date,formid,imgurl)
-      VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10,$11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING *`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10,$11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24) RETURNING *`;
     console.log(req.body)
     const values = [
     req.body.name,
     req.body.lastname,
+    req.body.othername,
     req.body.dob,
     req.body.state,
     req.body.lga,
