@@ -39,9 +39,8 @@ router.get('/', async (req, res) => {
    // cloudinary.uploader.upload(req.file.path, async (result)=> {
     
     const createUser = `INSERT customer
-        (name,lastname,othername,dob,state,lga,pow,gradelevel,ministry,psn,department,bank,actno,branch,phone,modeofpayment,
-            caddress, phaddress, proposedlayout, plotno, plotsize, date,formid,imgurl)
-      VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10,$11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24) RETURNING *`;
+        (name,lastname,othername,dob,state,lga)
+      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
     console.log(req.body)
     const values = [
     req.body.name,
@@ -49,26 +48,8 @@ router.get('/', async (req, res) => {
     req.body.othername,
     req.body.dob,
     req.body.state,
-    req.body.lga,
-    req.body.pow,
-    req.body.gradelevel,
-    req.body.ministry,
-    req.body.psn,
-    req.body.department,
-    req.body.bank,
-    req.body.actno,
-    req.body.branch,
-    req.body.phone,
-    req.body.modeofpayment,
-    req.body.caddress,
-    req.body.phaddress,
-    req.body.proposedlayout,
-    req.body.plotno,
-    req.body.plotsize,
-    moment(new Date()),
-    req.body.formid,
-    'urls[0]' 
-      ];
+    req.body.lga
+         ];
     try {
     const { rows } = await db.query(createUser, values);
     // console.log(rows);
