@@ -39,16 +39,11 @@ router.get('/', async (req, res) => {
    // cloudinary.uploader.upload(req.file.path, async (result)=> {
     
     const createUser = `INSERT customer
-        (name,lastname,othername,dob,state,lga)
-      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+        (name)
+      VALUES ($1) RETURNING *`;
     console.log(req.body)
     const values = [
-    req.body.name,
-    req.body.lastname,
-    req.body.othername,
-    req.body.dob,
-    req.body.state,
-    req.body.lga
+    req.body.name
          ];
     try {
     const { rows } = await db.query(createUser, values);
