@@ -32,6 +32,7 @@ router.get('/', async (req, res) => {
        //   const { path } = file;
           const newPath = await uploader(file)
           urls.push(newPath.url)
+        //  console.log()
          // fs.unlinkSync(path)
       //  }
     
@@ -66,7 +67,7 @@ router.get('/', async (req, res) => {
     req.body.plotsize,
     moment(new Date()),
     req.body.formid,
-    urls[0] 
+    'urls[0]' 
       ];
     try {
     const { rows } = await db.query(createUser, values);
