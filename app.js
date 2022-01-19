@@ -13,6 +13,8 @@ const Folders = require('./src/controllers/folders')
 const Files = require('./src/controllers/files')
 const Categories = require('./src/controllers/categories')
 const Customer = require('./src/controllers/customer')
+const Payments = require('./src/controllers/payments')
+
 
 
 
@@ -90,6 +92,8 @@ app.use('/api/v1/folders', Folders)
 app.use('/api/v1/files', Files)
 app.use('/api/v1/categories', Categories)
 app.use('/api/v1/customers', Customer)
+app.use('/api/v1/payments', Payments)
+
 
 
 
