@@ -21,6 +21,20 @@ router.get('/', async (req, res) => {
       return res.status(400).send(`${error} jsh`);
     }
   });  
+
+  router.get('/plots/:id/:layout', async (req, res) => {
+    const getAllQ = `SELECT plotno FROM customer where id=$1 and proposedlayout=$2`;
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,[req.params.id,req.params.layout]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });  
   
 
 
