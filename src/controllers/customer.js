@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
   });  
 
   router.get('/layouts/:id', async (req, res) => {
-    const getAllQ = `SELECT * FROM layouts left join plots on layouts.proposedlayout=plots.layout where customerid=$1`;
+    const getAllQ = `SELECT * FROM layouts left join plots on layouts.proposedlayout=plots.layout where layouts.customerid=$1`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,[req.params.id]);
