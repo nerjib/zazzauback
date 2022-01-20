@@ -68,8 +68,8 @@ router.get('/', async (req, res) => {
     
     const createUser = `INSERT INTO customer
         (name,lastname,othername,dob,state,lga,pow,gradelevel,ministry,psn,department,bank,actno,branch,phone,modeofpayment,
-            caddress, phaddress, proposedlayout, plotno, plotsize, date,formid,imgurl)
-      VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10,$11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24) RETURNING *`;
+            caddress, phaddress,   date,formid,imgurl)
+      VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10,$11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING *`;
     console.log(req.body)
     const values = [
     req.body.name,
@@ -90,10 +90,7 @@ router.get('/', async (req, res) => {
     req.body.modeofpayment,
     req.body.caddress,
     req.body.phaddress,
-    req.body.proposedlayout,
-    req.body.plotno,
-    req.body.plotsize,
-    moment(new Date()),
+     moment(new Date()),
     req.body.formid,
     urls[0] 
       ];
