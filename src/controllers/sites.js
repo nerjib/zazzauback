@@ -37,6 +37,38 @@ router.get('/', async (req, res) => {
   });  
   
 
+  router.post('/add',   async(req, res) => {
+
+    if (req.method === 'POST') {
+    
+    const createUser = `INSERT INTO layouts
+        (customerid,date, proposedlayout,plotno, formid)
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    console.log(req.body)
+    const values = [
+    req.body.customerid,
+    moment(new Date()),
+    req.body.layout,
+    req.body.plot,
+    req.body.formid
+      ];
+    try {
+    const { rows } = await db.query(createUser, values);
+    // console.log(rows);
+    return res.status(201).send(rows);
+    } catch (error) {
+    return res.status(400).send(error);
+    }  
+  //  },{ resource_type: "auto", public_id: `ridafycovers/${req.body.title}` })
+} else {
+    res.status(405).json({
+      err: `${req.method} method not allowed`
+    })
+  }
+
+  });
+
+
 
 
   module.exports = router;
