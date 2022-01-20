@@ -36,6 +36,20 @@ router.get('/', async (req, res) => {
     }
   });  
 
+  router.get('/layouts/:id', async (req, res) => {
+    const getAllQ = `SELECT * FROM layouts where customerid=$1`;
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,[req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });  
+
   router.post('/', upload.single('file'),  async(req, res) => {
     const uploader = async (path) => await cloudinary.uploads(path,'customer', req.body.name+'_'+(new Date()).getTime());
 
