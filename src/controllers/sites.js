@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
   });  
 
   router.get('/plots/:id/:layout', async (req, res) => {
-    const getAllQ = `SELECT plotno FROM layouts where id=$1 and proposedlayout=$2`;
+    const getAllQ = `SELECT plotno FROM layouts where customerid=$1 and proposedlayout=$2`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,[req.params.id,req.params.layout]);
