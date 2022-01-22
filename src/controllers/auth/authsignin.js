@@ -1,7 +1,7 @@
 const express = require('express');
 
 //const CokokieParser = require('cookie-parser');
-const Helper = require('../helpers/helper');
+const Helper = require('../helpers/helpers');
 
 const router = express.Router();
 //router.use(CokokieParser());
