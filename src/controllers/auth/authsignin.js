@@ -31,7 +31,9 @@ router.post('/', async (req, res) => {
       data: {
         token,
         userId: rows[0].id,
-        emailStatus: rows[0].email
+        emailStatus: rows[0].email,
+        role: rows[0].role
+
       },
     };
 
