@@ -8,12 +8,12 @@ const router = express.Router();
 const db = require('../../db/index');
 
 router.post('/', async (req, res) => {
-  if (!req.body.email || !req.body.password) {
+ /* if (!req.body.email || !req.body.password) {
     return res.status(400).send({ message: 'Some values are missing' });
   }
   if (!Helper.isValidEmail(req.body.email)) {
     return res.status(401).send({ message: 'Please enter a valid email address' });
-  }
+  }*/
   const text = 'SELECT * FROM customers WHERE email = $1';
   try {
     const { rows } = await db.query(text, [req.body.email]);
@@ -22,16 +22,16 @@ router.post('/', async (req, res) => {
       return res.status(402).send({ message: 'user not found, check the username' });
     }
     // console.log(rows[0].pword);
-    if (!Helper.comparePassword(rows[0].password, req.body.password)) {
+   /* if (!Helper.comparePassword(rows[0].password, req.body.password)) {
       return res.status(403).send({ message: 'The credentials you provided is incorrect' });
-    }
-    const token = Helper.generateToken(rows[0].id, rows[0].account_role);
+    }*/
+    const token = Helper.generateToken(rows[0].id, rows[0].name);
     const response = {  
       status: 'success',
       data: {
         token,
         userId: rows[0].id,
-        emailStatus: rows[0].email_status
+        emailStatus: rows[0].email
       },
     };
 
