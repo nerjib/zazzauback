@@ -97,7 +97,7 @@ app.use('/api/v1/categories', Categories)
 app.use('/api/v1/customers', Customer)
 app.use('/api/v1/payments', Payments)
 app.use('/api/v1/auth/signin', Authsignin)
-app.use('/api/v1/auth/signin', Orphund)
+app.use('/api/v1/orphund', Orphund)
 
 
 
