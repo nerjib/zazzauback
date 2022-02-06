@@ -42,7 +42,7 @@ router.post("/create-account-hosted", async (req, res) => {
 
 });
 
-router.get("/account/:id", async (req, res) => {
+router.get("/account/:id/:amount", async (req, res) => {
   //return res.send(req.params.id)
   const data = req.body;
   let accountId = req.params.id;
@@ -62,7 +62,7 @@ router.get("/account/:id", async (req, res) => {
 
   const paymentIntent = await stripe.paymentIntents.create({
     payment_method_types: ['card'],
-    amount: 1200 *100,
+    amount: req.params.amount *100,
     currency: 'usd',
     application_fee_amount: 100 *100,
   }, {
