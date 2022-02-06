@@ -98,7 +98,13 @@ return;
 function now() {
   return Math.round((new Date()).getTime() / 1000);
 }
+router.post("/getbalance/:id", async (req, res) => {
+    const balance = await stripe.balance.retrieve({
+        stripeAccount: req.params.id
+      });
 
+
+})
 router.post("/create-account", async (req, res) => {
   const data = req.body;
   try {
